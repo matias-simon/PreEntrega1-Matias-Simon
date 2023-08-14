@@ -7,8 +7,8 @@ import { useParams } from "react-router-dom";
 
 const ItemDetailContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [item, setItem] = useState([]);
-  const { id } = useParams;
+  const [item, setItem] = useState({});
+  const { id } = useParams();
 
   useEffect(() => {
     getInstrumento(id)
@@ -17,7 +17,7 @@ const ItemDetailContainer = () => {
       })
       .catch((error) => console.error(error))
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [id]);
 
   if (isLoading) return <Loading />;
 
