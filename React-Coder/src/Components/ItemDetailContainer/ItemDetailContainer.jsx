@@ -5,6 +5,7 @@ import Loading from "../Loading/Loading";
 import "./ItemDetailContainer";
 import { useParams } from "react-router-dom";
 
+
 const ItemDetailContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [item, setItem] = useState({});
@@ -23,7 +24,9 @@ const ItemDetailContainer = () => {
 
   return (
     <div className="fondo">
+      
      <ItemDetail {...item}/>
+     
     </div>
   );
 };

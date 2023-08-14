@@ -31,7 +31,7 @@ const ItemDetail = ({ img, tipo, marca, modelo, descripcion, precio }) => {
           maxWidth: 340,
         }}
       >
-        <CardMedia sx={{ height: 200 }} image={img} title={tipo} />
+        <CardMedia component="img" sx={{ height: 200 }} src={img}  title={tipo}/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {marca} {modelo}
