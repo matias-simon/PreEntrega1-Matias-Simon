@@ -21,14 +21,15 @@ const ItemDetail = ({ img, tipo, marca, modelo, descripcion, precio }) => {
 
 
   return (
-    <Container>
+    <Container sx={{display:"flex", alignItems:'center', justifyContent:'center', minHeight:"100vh"}}>
       <Card
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
-          maxWidth: 340,
+          minWidth: 340,
+          padding: 3
         }}
       >
         <CardMedia component="img" sx={{ height: 200 }} src={img}  title={tipo}/>
@@ -76,7 +77,7 @@ const ItemDetail = ({ img, tipo, marca, modelo, descripcion, precio }) => {
           <Box>
           <Button
             variant="contained"
-            size="small"
+            size="large"
             sx={{
               backgroundColor: "#333",
               "&:hover": { backgroundColor: "#555" },

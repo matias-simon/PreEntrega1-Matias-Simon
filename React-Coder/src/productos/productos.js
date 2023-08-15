@@ -79,6 +79,14 @@ export const getInstrumento= (itemId)=>{
     },2000)
   })
 }
+export const getCategory=(tipo)=>{
+  return new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+      const category = instrumentos.filter((instrumento) => instrumento.tipo === tipo)
+      resolve(category)
+    },2000)
+  })
 
+}
 
 
