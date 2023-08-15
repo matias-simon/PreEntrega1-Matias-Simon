@@ -3,19 +3,22 @@ import React, { useEffect, useState } from "react";
 import "./ItemListContainer.css";
 import ItemList from "../ItemList/ItemList";
 import Loading from "../Loading/Loading";
-import { getInstrumentos } from "../../productos/productos";
+import { getCategory, getInstrumentos } from "../../productos/productos";
+import { useParams } from "react-router-dom";
 
 
 const ItemListContainer = ({ Greetings }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [item, setItem] = useState([]);
-
+  const {id}= useParams()
   useEffect(() => {
-    getInstrumentos()
+    setIsLoading(true)
+    const getData =  id ? getCategory : getInstrumentos
+      getData(id)
       .then((items) => setItem(items))
       .catch((error) => console.error(error))
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [id]);
 
   if (isLoading) return <Loading />;
 
