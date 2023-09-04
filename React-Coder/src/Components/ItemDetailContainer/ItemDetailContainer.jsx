@@ -4,6 +4,8 @@ import ItemDetail from "../ItemDetail/ItemDetail";
 import Loading from "../Loading/Loading";
 import "./ItemDetailContainer";
 import { useParams } from "react-router-dom";
+import { db } from "../../Services/firebase/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 
 const ItemDetailContainer = () => {
@@ -12,12 +14,12 @@ const ItemDetailContainer = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    getInstrumento(id)
-      .then((response) => {
-        setItem(response);
-      })
-      .catch((error) => console.error(error))
-      .finally(() => setIsLoading(false));
+    const itemRef = doc(db, "items", id)
+    getDoc(itemRef)
+        .then((resp) => {
+            setItem({ ...resp.data(), id: resp.id }),
+                setIsLoading(false)
+        })           
   }, [id]);
 
   if (isLoading) return <Loading />;
@@ -25,7 +27,7 @@ const ItemDetailContainer = () => {
   return (
     <div className="fondo">
       
-     <ItemDetail {...item}/>
+     <ItemDetail item={item}/>
      
     </div>
   );

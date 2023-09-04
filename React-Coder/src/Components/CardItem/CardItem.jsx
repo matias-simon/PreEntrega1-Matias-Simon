@@ -18,19 +18,22 @@ const CardItem = ({ img, tipo, marca, modelo, descripcion, precio, id }) => {
         <Typography variant="body2" color="text.secondary">
           {descripcion}
         </Typography>
-        <Typography variant="h6" textAlign={"center"}>$ {precio}</Typography>
+        <Typography variant="h6" textAlign={"center"}>
+          $ {precio}
+        </Typography>
       </CardContent>
       <CardActions>
-        <Link to={`/item/${id}`}><Button
-          variant="contained" 
-          size="small"
-          sx={{
-            backgroundColor: "#333",
-            "&:hover": { backgroundColor: "#555" },
-          }}
-        >
-          Detalle
-        </Button>
+        <Link to={`/item/${id}`}>
+          <Button
+            variant="contained"
+            size="small"
+            sx={{
+              backgroundColor: "#333",
+              "&:hover": { backgroundColor: "#555" },
+            }}
+          >
+            Detalle
+          </Button>
         </Link>
       </CardActions>
     </Card>

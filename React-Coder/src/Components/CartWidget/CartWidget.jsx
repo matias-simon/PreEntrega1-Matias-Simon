@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { CartContext } from "../../Context/CartContext";
 
 const CartWidget = () => {
+  const {ammountInCart}= useContext(CartContext)
   return (
     <>
-      <ShoppingCartIcon />0
+      <ShoppingCartIcon />{ammountInCart()}
     </>
   );
 };

@@ -35,7 +35,7 @@ const Navbar = () => {
                 Bajos
               </Button>
             </NavLink>
-            <NavLink style={{textDecoration:'none', color:'inherit'}}>
+            <NavLink to={'/cart'} style={{textDecoration:'none', color:'inherit'}}>
               <Button color="inherit" sx={{ m: 2 }}>
                 <CartWidget />
               </Button>

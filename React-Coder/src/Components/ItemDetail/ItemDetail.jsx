@@ -1,4 +1,4 @@
-import * as React from "react";
+import {React, useContext } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -7,21 +7,36 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box, Container } from "@mui/material";
 import { useState } from "react";
+import ItemCount from "../ItemCount/ItemCount";
+import { Link } from "react-router-dom";
+import { CartContext } from "../../Context/CartContext";
 
-const ItemDetail = ({ img, tipo, marca, modelo, descripcion, precio }) => {
-  const [cantidad, setCantidad] = useState(0);
+const ItemDetail = ({item}) => {
+  const {addItem}= useContext(CartContext)
+  const [count, setCount] = useState(1);
+
   const handleDown = () => {
-    if (cantidad > 0) {
-      setCantidad((prev) => prev - 1);
+    if (count > 1) {
+      setCount(count - 1);
     }
   };
   const handleUp = () => {
-    setCantidad((prev) => prev + 1);
+    setCount(count+ 1);
   };
-
+  const handleOnAdd = ()=>{
+    addItem(item, count)
+  }
+  
 
   return (
-    <Container sx={{display:"flex", alignItems:'center', justifyContent:'center', minHeight:"100vh"}}>
+    <Container
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+      }}
+    >
       <Card
         sx={{
           display: "flex",
@@ -29,64 +44,28 @@ const ItemDetail = ({ img, tipo, marca, modelo, descripcion, precio }) => {
           justifyContent: "center",
           flexDirection: "column",
           minWidth: 340,
-          padding: 3
+          padding: 3,
         }}
       >
-        <CardMedia component="img" sx={{ height: 200 }} src={img}  title={tipo}/>
+        <CardMedia
+          component="img"
+          sx={{ height: 200 }}
+          src= {item.img}
+          title={item.tipo}
+        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {marca} {modelo}
+            {item.marca} {item.modelo}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {descripcion}
+            {item.descripcion}
           </Typography>
-          <Typography variant="h6">$ {precio}</Typography>
+          <Typography variant="h6">$ {item.precio}</Typography>
         </CardContent>
         <CardActions>
-          <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}alignItems={"center"}>
-          <Box
-            display={"flex"}
-            sx={{ alignItems: "center", justifyContent: "center" }}
-          >
-            <Button
-              variant="contained"
-              size="small"
-              sx={{
-                backgroundColor: "#333",
-                "&:hover": { backgroundColor: "#555" },
-              }}
-              onClick={handleDown}
-            >
-              -
-            </Button>
-            <Typography variant="h5" textAlign={"center"} sx={{margin: 4}}>
-              {cantidad}
-            </Typography>
-            <Button
-              variant="contained"
-              size="small"
-              sx={{
-                backgroundColor: "#333",
-                "&:hover": { backgroundColor: "#555" },
-              }}
-              onClick={handleUp}
-            >
-              +
-            </Button>
-          </Box>
-          <Box>
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              backgroundColor: "#333",
-              "&:hover": { backgroundColor: "#555" },
-            }}
-          >
-            Comprar
-          </Button>
-          </Box>
-          </Box>
+        
+            <ItemCount count={count} handleDown={handleDown} handleUp={handleUp} handleOnAdd={handleOnAdd} />
+          
         </CardActions>
       </Card>
     </Container>

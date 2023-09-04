@@ -5,20 +5,30 @@ import ItemList from "../ItemList/ItemList";
 import Loading from "../Loading/Loading";
 import { getCategory, getInstrumentos } from "../../productos/productos";
 import { useParams } from "react-router-dom";
-
+import { getDocs, collection, query, where } from "firebase/firestore";
+import { db } from "../../Services/firebase/firebaseConfig";
 
 const ItemListContainer = ({ Greetings }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [item, setItem] = useState([]);
-  const {id}= useParams()
+  const { tipo } = useParams();
+
   useEffect(() => {
-    setIsLoading(true)
-    const getData =  id ? getCategory : getInstrumentos
-      getData(id)
-      .then((items) => setItem(items))
-      .catch((error) => console.error(error))
-      .finally(() => setIsLoading(false));
-  }, [id]);
+
+    const itemsRef = collection(db, "items");
+    const qry = tipo ? query(itemsRef, where("tipo", "==", tipo)) : itemsRef
+
+    getDocs(qry)
+        .then((resp) => {
+            setItem(
+                resp.docs.map((doc) => {
+                    return { ...doc.data(), id: doc.id }
+                })
+            )
+        }
+            , setIsLoading(false)
+        )
+}, [tipo])
 
   if (isLoading) return <Loading />;
 
